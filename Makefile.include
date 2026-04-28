@@ -1,0 +1,56 @@
+# Makefile.include - Include this from resource project Makefiles
+# Usage: BUILDER := third_party/docker-builder
+#        include $(BUILDER)/Makefile.include
+
+BUILD_PY     := python3 $(BUILDER)/build.py --project-root=.
+BRANCH       ?=
+LINEUP       ?= base
+MAX_PARALLEL ?= 2
+
+.PHONY: build buildx publishx publish build-all buildx-all publishx-all publish-all \
+        tag-stable manifest manifest-all discover list deps ci-matrix
+
+build:
+	@$(BUILD_PY) build $(BRANCH) --lineup=$(LINEUP)
+
+buildx:
+	@$(BUILD_PY) buildx $(BRANCH) --lineup=$(LINEUP)
+
+publishx:
+	@$(BUILD_PY) publishx $(BRANCH) --lineup=$(LINEUP)
+
+publish:
+	@$(BUILD_PY) publish $(BRANCH) --lineup=$(LINEUP)
+
+build-all:
+	@$(BUILD_PY) build-all --lineup=$(LINEUP) --parallel=$(MAX_PARALLEL)
+
+buildx-all:
+	@$(BUILD_PY) buildx-all --lineup=$(LINEUP) --parallel=$(MAX_PARALLEL)
+
+publishx-all:
+	@$(BUILD_PY) publishx-all --lineup=$(LINEUP) --parallel=$(MAX_PARALLEL)
+
+publish-all:
+	@$(BUILD_PY) publish-all --lineup=$(LINEUP) --parallel=$(MAX_PARALLEL)
+
+tag-stable:
+	@$(BUILD_PY) tag-stable $(BRANCH) --lineup=$(LINEUP)
+
+manifest:
+	@$(BUILD_PY) manifest $(BRANCH) --lineup=$(LINEUP)
+
+manifest-all:
+	@$(BUILD_PY) manifest-all --lineup=$(LINEUP)
+
+discover:
+	@$(BUILD_PY) discover
+
+list:
+	@$(BUILD_PY) list --lineup=$(LINEUP)
+
+deps:
+	@$(BUILD_PY) deps $(BRANCH)
+
+ci-matrix:
+	@$(BUILD_PY) ci-matrix --lineup=$(LINEUP) --pretty
