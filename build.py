@@ -847,7 +847,6 @@ def qemu_ci_matrix(images):
 
 def main():
     common = argparse.ArgumentParser(add_help=False)
-    common.add_argument("--project-root", default=".", help="Project root directory")
     common.add_argument("--lineup", default="base", help="Lineup name (default: base)")
 
     parser = argparse.ArgumentParser(
@@ -855,6 +854,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
+    parser.add_argument("--project-root", default=".", help="Project root directory")
     sub = parser.add_subparsers(dest="command", required=True)
 
     # --- Discovery ---
