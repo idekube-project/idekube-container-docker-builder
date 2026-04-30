@@ -28,8 +28,8 @@ fi
 
 
 # set default values
-REGISTRY=${REGISTRY:-"docker.io"}
-AUTHOR=${AUTHOR:-"davidliyutong"}
+REGISTRY=${REGISTRY:-"ghcr.io"}
+AUTHOR=${AUTHOR:-"idekube-project"}
 NAME=${NAME:-"idekube-container"}
 
 # set GIT_TAG variable
